@@ -16,7 +16,7 @@ export class FormComponent implements OnInit {
       name: ['', Validators.required],
       surname: ['', Validators.required],
       email: ['', [Validators.email, Validators.required]],
-      phone: ['', [Validators.minLength(9), Validators.maxLength(9)]],
+      phone: [''],
       password: [''],
       confirmPassword: [''],
       address: this.fb.group({
@@ -25,6 +25,7 @@ export class FormComponent implements OnInit {
         building: [''],
         flatNo: [''],
       })
+
     });
   }
 

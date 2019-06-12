@@ -9,21 +9,33 @@
 <div>
   <label>Nazwisko: </label>
   <input formControlName="surname" type="text">
+  <div *ngIf="submitted && f.surname.errors">
+    <div *ngIf="f.surname.errors.required">Nie podano Nazwiska</div>
+    </div>
 </div>
 <div>
   <label>Email: </label>
   <input formControlName="email" type="text">
+  <div *ngIf="submitted && f.email.errors">
+  <div *ngIf="f.email.errors.required">Nie podano Email</div>
+  <div *ngIf="f.email.errors.email">Niepoprawny email</div>
+  </div>
 </div>
 <div>
   <label>telefon: </label>
   <input formControlName="phone" type="text">
+  <!-- <div *ngIf="f.phone.errors.pattern && submitted">Niepoprawny format telefonu - dozwolone cyfry i znaki () + -</div> -->
 </div>
 <div>
   <label>Hasło: </label>
-  <input formControlName="password" type="text">
-</div><div>
+  <input formControlName="password" type="password">
+</div>
+<div>
   <label>Powtórz hasło: </label>
-  <input formControlName="confirmPassword" type="text">
+  <input formControlName="confirmPassword" type="password">
+  <div *ngIf="f.password.value !== null && submitted">
+  <div *ngIf="f.password.value !== f.confirmPassword.value">Hasła nie są takie same</div>
+  </div>
 </div>
 <h2>Adres(Opcjonalnie):</h2>
 <div formGroupName="address"> 
