@@ -1,3 +1,48 @@
-<p>
-  Form works!
-</p>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+<div>
+  <label>Imię: </label>
+  <input  formControlName="name" type="text" required>
+  <div *ngIf="submitted && f.name.errors">
+    <div *ngIf="f.name.errors.required">Nie podano imienia</div>
+</div>
+</div>
+<div>
+  <label>Nazwisko: </label>
+  <input formControlName="surname" type="text">
+</div>
+<div>
+  <label>Email: </label>
+  <input formControlName="email" type="text">
+</div>
+<div>
+  <label>telefon: </label>
+  <input formControlName="phone" type="text">
+</div>
+<div>
+  <label>Hasło: </label>
+  <input formControlName="password" type="text">
+</div><div>
+  <label>Powtórz hasło: </label>
+  <input formControlName="confirmPassword" type="text">
+</div>
+<h2>Adres(Opcjonalnie):</h2>
+<div formGroupName="address"> 
+<div>
+  <label>Miasto: </label>
+  <input formControlName="city" type="text">
+</div>
+<div>
+  <label>Ulica: </label>
+  <input formControlName="street" type="text">
+</div>
+<div>
+  <label>Nr Domu: </label>
+  <input formControlName="building" type="text">
+</div>
+<div>
+  <label>Nr Mieszkania: </label>
+  <input formControlName="flatNo" type="text">
+</div>
+</div>
+<button class="button" type="submit">Utwórz</button>
+</form>

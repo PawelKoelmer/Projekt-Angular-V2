@@ -14,5 +14,5 @@ export interface IForm {
     consents: {
         newsletter: boolean; // Zgoda na otrzymywanie wiadomości e-mail.
         sms: boolean; // Zgoda na otrzymywanie wiadomości SMS.
-    }
+    };
 }
