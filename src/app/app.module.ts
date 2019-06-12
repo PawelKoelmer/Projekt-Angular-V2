@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormModule } from './Form/Form.module';
 import { PostsModule } from './Posts/Posts.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -15,6 +16,7 @@ import { PostsModule } from './Posts/Posts.module';
    imports: [
       BrowserModule,
       AppRoutingModule,
+      HttpClientModule,
       FormModule,
       PostsModule
    ],
