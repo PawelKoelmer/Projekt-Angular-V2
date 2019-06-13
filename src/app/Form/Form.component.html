@@ -17,8 +17,8 @@
   <label>Email: </label>
   <input formControlName="email" type="text">
   <div *ngIf="submitted && f.email.errors">
-  <div *ngIf="f.email.errors.required">Nie podano Email</div>
-  <div *ngIf="f.email.errors.email">Niepoprawny email</div>
+  <div *ngIf="f.EmailValidation.email.errors">Nie podano Email</div>
+  <div *ngIf="f.EmailValidation.email.errors">Niepoprawny email</div>
   </div>
 </div>
 <div>

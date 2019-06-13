@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { EmailValidation } from './EmailValidation';
 
 @Component({
   templateUrl: './Form.component.html',
@@ -15,7 +16,7 @@ export class FormComponent implements OnInit {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
-      email: ['', [Validators.email, Validators.required]],
+      email: ['', Validators.required],
       phone: [''],
       password: [''],
       confirmPassword: [''],
@@ -26,7 +27,7 @@ export class FormComponent implements OnInit {
         flatNo: [''],
       })
 
-    });
+    }, {validator: EmailValidation.MatchEmail});
   }
 
  get f() { return this.userForm.controls; }
