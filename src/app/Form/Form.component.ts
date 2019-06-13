@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { EmailValidation } from './EmailValidation';
 
 @Component({
   templateUrl: './Form.component.html',
@@ -10,24 +9,30 @@ export class FormComponent implements OnInit {
 
   userForm: FormGroup;
   submitted = false;
+  emailDomainValidator: any;
+
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, this.emailValidator]],
       phone: [''],
       password: [''],
       confirmPassword: [''],
+      pet: [''],
       address: this.fb.group({
         city: [''],
         street: [''],
         building: [''],
         flatNo: [''],
-      })
-
-    }, {validator: EmailValidation.MatchEmail});
+      }),
+      consents: this.fb.group({
+          newsselter: [''],
+          sms: [''],
+      }),
+    });
   }
 
  get f() { return this.userForm.controls; }
@@ -39,5 +44,16 @@ export class FormComponent implements OnInit {
     }
     alert('success');
   }
+  emailValidator(control: FormControl) {
+  const email = control.value;
+  const regexp = /^ [0 - 9a - zA - z.] *@[a - z]*.[a - z]{ 2, 3 }$/g;
+  console.log(email);
+  console.log(regexp.test(email));
+  if (!(regexp.test(email))) {
+        //nie wiem co zwrócić i nie do końca działa regex poprawny
+
+    } else { return null; }
+  }
 
 }
+
