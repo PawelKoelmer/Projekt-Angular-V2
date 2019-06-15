@@ -1,26 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+
+import { MyValidators } from './MyValidators';
+import { Router } from '@angular/router';
+import { IForm } from './IForm';
 
 @Component({
   templateUrl: './Form.component.html',
   styleUrls: ['./Form.component.css']
 })
 export class FormComponent implements OnInit {
-
   userForm: FormGroup;
   submitted = false;
   emailDomainValidator: any;
+  phoneRegEx = '[- +()0-9]*';
+  emailPattern = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
+  account_validation_messages = MyValidators.account_validation_messages;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private router: Router) { }
 
   ngOnInit() {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
-      email: ['', [Validators.required, this.emailValidator]],
-      phone: [''],
-      password: [''],
-      confirmPassword: [''],
+      email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
+      phone: ['', Validators.pattern(this.phoneRegEx)],
+      password: ['', [ Validators.required, Validators.minLength(8),
+        MyValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+        MyValidators.patternValidator(/[@#$%^&]/, { hasSpecialCharacters: true }),
+      ]],
+      confirmPassword: ['', Validators.required],
       pet: [''],
       address: this.fb.group({
         city: [''],
@@ -29,31 +38,24 @@ export class FormComponent implements OnInit {
         flatNo: [''],
       }),
       consents: this.fb.group({
-          newsselter: [''],
-          sms: [''],
+          newsletter: false,
+          sms: false,
       }),
+    }, {
+        validator: MyValidators.passwordMatchValidator
     });
   }
 
- get f() { return this.userForm.controls; }
+ get name() { return this.userForm.get('name'); }
+ get email() { return this.userForm.get('email'); }
 
-  onSubmit() {
-    this.submitted = true;
-    if (this.userForm.invalid) {
+ onSubmit() {
+   console.log(this.userForm.valid);
+   if (this.userForm.valid) {
+     console.log(this.userForm.value);
+     this.router.navigate(['/form/RegisterDetails'], { state: { data: this.userForm.value } });
+    } else {
       return;
     }
-    alert('success');
   }
-  emailValidator(control: FormControl) {
-  const email = control.value;
-  const regexp = /^ [0 - 9a - zA - z.] *@[a - z]*.[a - z]{ 2, 3 }$/g;
-  console.log(email);
-  console.log(regexp.test(email));
-  if (!(regexp.test(email))) {
-        //nie wiem co zwrócić i nie do końca działa regex poprawny
-
-    } else { return null; }
-  }
-
 }
-

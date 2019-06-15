@@ -1,85 +1,95 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-<div>
-  <label>Imię: </label>
-  <input  formControlName="name" type="text" required>
-  <div *ngIf="submitted && f.name.errors">
-    <div *ngIf="f.name.errors.required">Nie podano imienia</div>
-</div>
-</div>
-<div>
-  <label>Nazwisko: </label>
-  <input formControlName="surname" type="text">
-  <div *ngIf="submitted && f.surname.errors">
-    <div *ngIf="f.surname.errors.required">Nie podano Nazwiska</div>
-    </div>
-</div>
-<div>
-  <label>Email: </label>
-  <input formControlName="email" type="text">
-  <div *ngIf="submitted && f.email.errors">
-  <div *ngIf="f.email.errors.required">Nie podano Email</div>
-  <div *ngIf="f.email.errors.emailValidator">Niepoprawny email</div>
+<label class="control-label required" for="name"> Imię: </label>
+<input type="text" name="" id="name" formControlName="name">
+<div *ngFor="let validation of account_validation_messages.name">
+  <div class="error-message"
+    *ngIf="userForm.get('name').hasError(validation.type) && (userForm.get('name').dirty || userForm.get('name').touched)">
+    {{validation.message}}</div>
+</div> <br />
+
+<label for="surname"> Nazwisko: </label>
+<input type="text" name="" id="surname" formControlName="surname">
+<div *ngFor="let validation of account_validation_messages.surname">
+  <div class="error-message"
+    *ngIf="userForm.get('surname').hasError(validation.type) && (userForm.get('surname').dirty || userForm.get('surname').touched)">
+    {{validation.message}}</div>
+</div> <br />
+
+<label for="email"> E-mail: </label>
+<input type="text" name="" id="email" formControlName="email">
+<div *ngFor="let validation of account_validation_messages.email">
+  <div class="error-message"
+    *ngIf="userForm.get('email').hasError(validation.type) && (userForm.get('email').dirty || userForm.get('email').touched)">
+    {{validation.message}}</div>
+</div> <br />
+
+<label for="phone"> Telefon: </label>
+<input type="text" name="" id="phone" formControlName="phone">
+<div *ngFor="let validation of account_validation_messages.phone">
+  <div class="error-message"
+    *ngIf="userForm.get('phone').hasError(validation.type) && (userForm.get('phone').dirty || userForm.get('phone').touched)">
+    {{validation.message}}</div>
+</div> <br />
+
+<label for="password"> Hasło: </label>
+<input type="password" id="password" formControlName="password">
+<div *ngFor="let validation of account_validation_messages.password">
+  <div class="error-message"
+    *ngIf="userForm.get('password').hasError(validation.type) && (userForm.get('password').dirty || userForm.get('password').touched)">
+    {{validation.message}}</div>
+</div> <br />
+
+<label for="confirmPassword"> Potwierdź hasło: </label>
+<input type="password" name="" id="confirmPassword" formControlName="confirmPassword"> <br />
+<label for="confirmPassword">
+  <div *ngFor="let validation of account_validation_messages.confirmPassword">
+    <div class="error-message"
+      *ngIf="userForm.get('confirmPassword').hasError(validation.type) && (userForm.get('confirmPassword').dirty || userForm.get('confirmPassword').touched)">
+      {{validation.message}}</div>
+  </div> <br />
+  <div *ngIf="userForm.controls['confirmPassword'].hasError('NoPassswordMatch')">
+    <div class="error-message"> Podane hasła muszą być takie same </div>
+  </div>
+</label> <br />
+
+<label for="pet"> Zwierzę: </label> <br>
+<label><input type="radio" name="pet" value="kot" formControlName="pet"> Kot </label> <br>
+<label><input type="radio" name="pet" value="pies" formControlName="pet"> Pies </label> <br>
+<label><input type="radio" name="pet" value="inne" formControlName="pet"> Inne </label> <br>
+<br>
+<h3>Adres</h3>
+<div formGroupName="address">
+  <div>
+  <label for="city"> Miasto: </label>
+  <input type="text" name="" id="city" formControlName="city">
+  </div>
+  <div>
+  <label for="street"> Ulica: </label>
+  <input type="text" name="" id="street" formControlName="street">
+  </div>
+  <div>
+  <label for="building"> Nr domu: </label>
+  <input type="text" name="" id="building" formControlName="building">
+  </div>
+  <div>
+  <label for="flatNo"> Nr mieszkania: </label>
+  <input type="text" name="" id="flatNo" formControlName="flatNo">
   </div>
 </div>
-<div>
-  <label>telefon: </label>
-  <input formControlName="phone" type="text">
-  <!-- <div *ngIf="f.phone.errors.pattern && submitted">Niepoprawny format telefonu - dozwolone cyfry i znaki () + -</div> -->
-</div>
-<div>
-  <label>Hasło: </label>
-  <input formControlName="password" type="password">
-</div>
-<div>
-  <label>Powtórz hasło: </label>
-  <input formControlName="confirmPassword" type="password">
-  <div *ngIf="f.password.value !== null && submitted">
-  <div *ngIf="f.password.value !== f.confirmPassword.value">Hasła nie są takie same</div>
-  </div>
-</div>
-<div>
-  <label>
-    <input type="radio" value="dog" formControlName="pet">
-    <span>Pies</span>
-  </label>
-  <label>
-    <input type="radio" value="cat" formControlName="pet">
-    <span>Kot</span>
-  </label>
-  <label>
-    <input type="radio" value="other" formControlName="pet">
-    <span>Inne</span>
-  </label>
-</div>
-<h2>Adres(Opcjonalnie):</h2>
-<div formGroupName="address"> 
-<div>
-  <label>Miasto: </label>
-  <input formControlName="city" type="text">
-</div>
-<div>
-  <label>Ulica: </label>
-  <input formControlName="street" type="text">
-</div>
-<div>
-  <label>Nr Domu: </label>
-  <input formControlName="building" type="text">
-</div>
-<div>
-  <label>Nr Mieszkania: </label>
-  <input formControlName="flatNo" type="text">
-</div>
-</div>
-<h2>Zgody</h2>
+ 
+
+
+<br>
+<h5>Zgody</h5>
 <div formGroupName="consents">
-  <div>
-    <label>Newsselter: </label>
-    <input formControlName="newsselter" type="checkbox">
-  </div>
-  <div>
-    <label>SMS: </label>
-    <input formControlName="sms" type="checkbox">
+  <label for="newsletter" class="control-label required"> Zgoda na otrzymywanie wiadomości e-mail </label>
+  <input type="checkbox" name="" id="newsletter" formControlName="newsletter"> <br>
+  <div *ngIf="userForm.get('phone').valid && (userForm.get('phone').dirty)">
+    <label for="sms"> Zgoda na otrzymywanie wiadomości SMS </label>
+    <input type="checkbox" name="" id="sms" formControlName="sms">
   </div>
 </div>
-<button class="button" type="submit">Utwórz</button>
+
+<button type="submit" (click)="onSubmit()">Submit</button>
+
 </form>

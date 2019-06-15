@@ -1,0 +1,18 @@
+
+<div>
+      Na imię masz {{user.name}} a na nazwisko {{user.surname}}.
+  </div>
+<div>Twój numer telefonu to: {{user.phone}}</div>
+
+<div *ngIf="user.address.city">
+Mieszkasz w: {{user.address.city}}
+</div>
+
+<div *ngIf="user.pet">
+  Twoje zwierzę to: {{user.pet}}
+</div>
+  
+
+  
+  
+

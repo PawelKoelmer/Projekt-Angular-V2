@@ -6,22 +6,16 @@ import { AppComponent } from './app.component';
 import { FormModule } from './Form/Form.module';
 import { PostsModule } from './Posts/Posts.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ShowUsersComponent } from './Form/ShowUsers/ShowUsers.component';
-
-
 
 
 @NgModule({
-   declarations: [
-      AppComponent,
-   ],
+   declarations: [AppComponent],
    imports: [
       BrowserModule,
       AppRoutingModule,
       HttpClientModule,
       FormModule,
       PostsModule,
-      ShowUsersComponent
    ],
    providers: [],
    bootstrap: [
